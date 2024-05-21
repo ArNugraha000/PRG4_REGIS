@@ -123,7 +123,7 @@ export default function RegistrasiForm({ onChangePage }) {
     berkasNPWPPerusahaan: string(),
     berkasSKTPerusahaan: string(),
     berkasSPPKPPerusahaan: string(),
-    berkasLainPerusahaan: string(),
+    berkasSIUPPerusahaan: string(),
   });
 
   const fetchDataByEndpointAndParams = async (
@@ -258,10 +258,11 @@ export default function RegistrasiForm({ onChangePage }) {
       const uploadPromises = [];
 
       const fileInputs = [
+        { ref: fileNIBRef, key: "berkasNIBPerusahaan" },
         { ref: fileNPWPRef, key: "berkasNPWPPerusahaan" },
-        { ref: fileSPPKPRef, key: "berkasSPPKPPerusahaan" },
         { ref: fileSKTRef, key: "berkasSKTPerusahaan" },
-        { ref: fileLainRef, key: "berkasLainPerusahaan" },
+        { ref: fileSPPKPRef, key: "berkasSPPKPPerusahaan" },
+        { ref: fileSIUPRef, key: "berkasSIUPPerusahaan" },
       ];
 
       fileInputs.forEach((fileInput) => {
@@ -278,14 +279,15 @@ export default function RegistrasiForm({ onChangePage }) {
         await Promise.all(uploadPromises);
 
         const data = await UseFetch(
-          API_LINK + "MasterPerusahaan/CreatePerusahaan",
+           API_LINK + "RegisterCustomer/CreateRegister",
+          //API_LINK + "MasterPelanggan/CreatePelanggan",
           formDataRef.current
         );
 
         if (data === "ERROR") {
-          throw new Error("Terjadi kesalahan: Gagal menyimpan data pelanggan.");
+          throw new Error("Terjadi kesalahan: Gagal menyimpan data customer.");
         } else {
-          SweetAlert("Sukses", "Data pelanggan berhasil disimpan", "success");
+          SweetAlert("Sukses", "Data customer berhasil disimpan", "success");
           onChangePage("index");
         }
       } catch (error) {
@@ -327,17 +329,40 @@ export default function RegistrasiForm({ onChangePage }) {
                   errorMessage={errors.namaPerusahaan}
                 />
               </div>
-              <div className="col-lg-9">
+              <div className="col-lg-3">
                 <Input
                   type="text"
                   forInput="alamatPerusahaan"
-                  label="Alamat"
+                  label="Alamat Perusahaan"
                   isRequired
                   value={formDataRef.current.alamatPerusahaan}
                   onChange={handleInputChange}
                   errorMessage={errors.alamatPerusahaan}
                 />
               </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="bidangPerusahaan"
+                  label="Bidang Perusahaan"
+                  isRequired
+                  value={formDataRef.current.bidangPerusahaan}
+                  onChange={handleInputChange}
+                  errorMessage={errors.bidangPerusahaan}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="pemilikPerusahaan"
+                  label="Pemilik Perusahaan"
+                  isRequired
+                  value={formDataRef.current.pemilikPerusahaan}
+                  onChange={handleInputChange}
+                  errorMessage={errors.pemilikPerusahaan}
+                />
+              </div>
+              
               <div className="col-lg-3">
                 <DropDown
                   forInput="provinsiPerusahaan"
@@ -382,7 +407,7 @@ export default function RegistrasiForm({ onChangePage }) {
                 <Input
                   type="text"
                   forInput="nomorTeleponPerusahaan"
-                  label="Nomor HP/Telepon"
+                  label="Nomor HP/Telepon Perusahaan"
                   isRequired
                   value={formDataRef.current.nomorTeleponPerusahaan}
                   onChange={handleInputChange}
@@ -403,7 +428,7 @@ export default function RegistrasiForm({ onChangePage }) {
                 <Input
                   type="email"
                   forInput="emailPerusahaan"
-                  label="Email"
+                  label="Email Perusahaan"
                   isRequired
                   value={formDataRef.current.emailPerusahaan}
                   onChange={handleInputChange}
@@ -423,41 +448,132 @@ export default function RegistrasiForm({ onChangePage }) {
               <div className="col-lg-3">
                 <Input
                   type="text"
-                  forInput="kontakPersonPenagihan"
-                  label="Contact Person Penagihan"
-                  value={formDataRef.current.kontakPersonPenagihan}
+                  forInput="alamatNPWPPerusahaan"
+                  label="Alamat NPWP"
+                  isRequired
+                  value={formDataRef.current.alamatNPWPPerusahaan}
                   onChange={handleInputChange}
-                  errorMessage={errors.kontakPersonPenagihan}
-                />
-              </div>
-              <div className="col-lg-3">
-                <Input
-                  type="email"
-                  forInput="emailPenagihan"
-                  label="Email Penagihan"
-                  value={formDataRef.current.emailPenagihan}
-                  onChange={handleInputChange}
-                  errorMessage={errors.emailPenagihan}
+                  errorMessage={errors.alamatNPWPPerusahaan}
                 />
               </div>
               <div className="col-lg-3">
                 <Input
                   type="text"
-                  forInput="kontakPersonPajak"
-                  label="Contact Person Pajak"
-                  value={formDataRef.current.kontakPersonPajak}
+                  forInput="nibPerusahaan"
+                  label="NIB Perusahaan"
+                  isRequired
+                  value={formDataRef.current.nibPerusahaan}
                   onChange={handleInputChange}
-                  errorMessage={errors.kontakPersonPajak}
+                  errorMessage={errors.nibPerusahaan}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="namaPicFinance"
+                  label="Nama PIC Finance"
+                  isRequired
+                  value={formDataRef.current.namaPicFinance}
+                  onChange={handleInputChange}
+                  errorMessage={errors.namaPicFinance}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="nomorTeleponPicFinance"
+                  label="Nomor HP/Telepon Finance"
+                  isRequired
+                  value={formDataRef.current.nomorTeleponPicFinance}
+                  onChange={handleInputChange}
+                  errorMessage={errors.nomorTeleponPicFinance}
                 />
               </div>
               <div className="col-lg-3">
                 <Input
                   type="email"
-                  forInput="emailPajak"
-                  label="Email Pajak"
-                  value={formDataRef.current.emailPajak}
+                  forInput="emailPicFinance"
+                  label="Email PIC Finance"
+                  isRequired
+                  value={formDataRef.current.emailPicFinance}
                   onChange={handleInputChange}
-                  errorMessage={errors.emailPajak}
+                  errorMessage={errors.emailPicFinance}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="namaPicTax"
+                  label="Nama PIC Tax"
+                  isRequired
+                  value={formDataRef.current.namaPicTax}
+                  onChange={handleInputChange}
+                  errorMessage={errors.namaPicTax}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="nomorTeleponPicTax"
+                  label="Nomor HP/Telepon Tax"
+                  isRequired
+                  value={formDataRef.current.nomorTeleponPicTax}
+                  onChange={handleInputChange}
+                  errorMessage={errors.nomorTeleponPicTax}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="email"
+                  forInput="emailPicTax"
+                  label="Email PIC Tax"
+                  isRequired
+                  value={formDataRef.current.emailPicTax}
+                  onChange={handleInputChange}
+                  errorMessage={errors.emailPicTax}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="namaPicProcurement"
+                  label="Nama PIC Procurement"
+                  isRequired
+                  value={formDataRef.current.namaPicProcurement}
+                  onChange={handleInputChange}
+                  errorMessage={errors.namaPicProcurement}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="nomorTeleponPicProcurement"
+                  label="Nomor HP/Telepon Procurement"
+                  isRequired
+                  value={formDataRef.current.nomorTeleponPicProcurement}
+                  onChange={handleInputChange}
+                  errorMessage={errors.nomorTeleponPicProcurement}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="email"
+                  forInput="emailPicProcurement"
+                  label="Email PIC Procurement"
+                  isRequired
+                  value={formDataRef.current.emailPicProcurement}
+                  onChange={handleInputChange}
+                  errorMessage={errors.emailPicProcurement}
+                />
+              </div>
+              <div className="col-lg-3">
+                <FileUpload
+                  forInput="berkasNIBPerusahaan"
+                  label="Berkas NIB (.pdf, .jpg, .png)"
+                  formatFile=".pdf,.jpg,.png"
+                  ref={fileNPWPRef}
+                  onChange={() => handleFileChange(fileNPWPRef, "pdf,jpg,png")}
+                  errorMessage={errors.berkasNIBPerusahaan}
                 />
               </div>
               <div className="col-lg-3">
@@ -472,16 +588,6 @@ export default function RegistrasiForm({ onChangePage }) {
               </div>
               <div className="col-lg-3">
                 <FileUpload
-                  forInput="berkasSPPKPPerusahaan"
-                  label="Berkas SPPKP (.pdf, .jpg, .png)"
-                  formatFile=".pdf,.jpg,.png"
-                  ref={fileSPPKPRef}
-                  onChange={() => handleFileChange(fileSPPKPRef, "pdf,jpg,png")}
-                  errorMessage={errors.berkasSPPKPPerusahaan}
-                />
-              </div>
-              <div className="col-lg-3">
-                <FileUpload
                   forInput="berkasSKTPerusahaan"
                   label="Berkas SKT (.pdf, .jpg, .png)"
                   formatFile=".pdf,.jpg,.png"
@@ -492,31 +598,41 @@ export default function RegistrasiForm({ onChangePage }) {
               </div>
               <div className="col-lg-3">
                 <FileUpload
-                  forInput="berkasLainPerusahaan"
-                  label="Berkas Lainnya (.pdf, .jpg, .png, .zip)"
+                  forInput="berkasSPPKPPerusahaan"
+                  label="Berkas SPPKP (.pdf, .jpg, .png)"
+                  formatFile=".pdf,.jpg,.png"
+                  ref={fileSPPKPRef}
+                  onChange={() => handleFileChange(fileSPPKPRef, "pdf,jpg,png")}
+                  errorMessage={errors.berkasSPPKPPerusahaan}
+                />
+              </div>
+              <div className="col-lg-3">
+                <FileUpload
+                  forInput="berkasSIUPPerusahaan"
+                  label="Berkas SIUP (.pdf, .jpg, .png, .zip)"
                   formatFile=".pdf,.jpg,.png,.zip"
-                  ref={fileLainRef}
+                  ref={fileSIUPRef}
                   onChange={() =>
-                    handleFileChange(fileLainRef, "pdf,jpg,png,zip")
+                    handleFileChange(fileSIUPRef, "pdf,jpg,png,zip")
                   }
-                  errorMessage={errors.berkasLainPerusahaan}
+                  errorMessage={errors.berkasSIUPPerusahaan}
                 />
               </div>
             </div>
           </div>
         </div>
-        {/* <div className="float-end my-4 mx-1">
-          <Button
+       <div className="float-end my-4 mx-1">
+          {/* <Button
             classType="secondary me-2 px-4 py-2"
             label="BATAL"
             onClick={() => onChangePage("index")}
-          />
+          /> */}
           <Button
             classType="primary ms-2 px-4 py-2"
             type="submit"
             label="SIMPAN"
           />
-        </div> */}
+        </div>
       </form>
     </>
   );
