@@ -306,11 +306,11 @@ export default function RegistrasiForm({ onChangePage }) {
 
   return (
     <>
-      {/* {isError.error && (
+      {isError.error && (
         <div className="flex-fill">
           <Alert type="danger" message={isError.message} />
         </div>
-      )} */}
+      )}
       <form onSubmit={handleAdd}>
         <div className="card">
           <div className="card-header bg-primary fw-medium text-white">
@@ -329,7 +329,7 @@ export default function RegistrasiForm({ onChangePage }) {
                   errorMessage={errors.namaPerusahaan}
                 />
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-9">
                 <Input
                   type="text"
                   forInput="alamatPerusahaan"
@@ -391,6 +391,16 @@ export default function RegistrasiForm({ onChangePage }) {
                   value={formDataRef.current.kecamatanPerusahaan}
                   onChange={handleInputChange}
                   errorMessage={errors.kecamatanPerusahaan}
+                />
+              </div>
+              <div className="col-lg-3">
+                <Input
+                  type="text"
+                  forInput="kodeposPerusahaan"
+                  label="Kode Pos"
+                  value={formDataRef.current.kodeposPerusahaan}
+                  onChange={handleInputChange}
+                  errorMessage={errors.kodeposPerusahaan}
                 />
               </div>
               <div className="col-lg-3">
@@ -571,8 +581,8 @@ export default function RegistrasiForm({ onChangePage }) {
                   forInput="berkasNIBPerusahaan"
                   label="Berkas NIB (.pdf, .jpg, .png)"
                   formatFile=".pdf,.jpg,.png"
-                  ref={fileNPWPRef}
-                  onChange={() => handleFileChange(fileNPWPRef, "pdf,jpg,png")}
+                  ref={fileNIBRef}
+                  onChange={() => handleFileChange(fileNIBRef, "pdf,jpg,png")}
                   errorMessage={errors.berkasNIBPerusahaan}
                 />
               </div>
@@ -618,20 +628,24 @@ export default function RegistrasiForm({ onChangePage }) {
                   errorMessage={errors.berkasSIUPPerusahaan}
                 />
               </div>
+                 <div className="col-lg-3">
+            <Button
+              classType="secondary me-2 px-4 py-2"
+              label="BATAL"
+              onClick={() => onChangePage("index")}
+            />
+            <Button
+              classType="primary ms-2 px-4 py-2"
+              type="submit"
+              label="SIMPAN"
+            />
             </div>
+
+         
           </div>
-        </div>
-       <div className="float-end my-4 mx-1">
-          {/* <Button
-            classType="secondary me-2 px-4 py-2"
-            label="BATAL"
-            onClick={() => onChangePage("index")}
-          /> */}
-          <Button
-            classType="primary ms-2 px-4 py-2"
-            type="submit"
-            label="SIMPAN"
-          />
+          </div>
+
+          
         </div>
       </form>
     </>
