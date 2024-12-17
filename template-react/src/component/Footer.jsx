@@ -67,7 +67,6 @@ function Footer() {
 								style={{ textDecoration: "none", color: "white" }}
 								target="_blank"
 							>
-								<h6>- Login Akun PMB</h6>
 							</a>
 						</div>
 						<div

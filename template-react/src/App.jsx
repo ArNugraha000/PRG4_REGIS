@@ -18,18 +18,18 @@ import ErrorPage from "./component/error/error";
 import { ScrollToTop } from "./route/ScrollToTop";
 
 const App = () => {
-	return (
-		<ErrorBoundary fallback={<ErrorPage />}>
-			<RouterApp>
-				<Suspense fallback={<Loading />}>
-					<NavigationProvider>
-						<ScrollToTop />
-						<Router />
-					</NavigationProvider>
-				</Suspense>
-			</RouterApp>
-		</ErrorBoundary>
-	);
+  return (
+    <ErrorBoundary fallback={<ErrorPage />}>
+      <RouterApp>
+        <Suspense fallback={<Loading />}>
+          <NavigationProvider>
+            <ScrollToTop />
+            <Router />
+          </NavigationProvider>
+        </Suspense>
+      </RouterApp>
+    </ErrorBoundary>
+  );
 };
 
 export default App;

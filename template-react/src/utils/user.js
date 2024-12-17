@@ -10,13 +10,13 @@ let user = null;
 
 // Periksa apakah ada data pengguna di cookie
 if (userCookie) {
-	// Dekode data pengguna jika perlu
-	const userProfile = decodeURIComponent(userCookie);
-	const decryptedData = decryptId(userProfile);
-	console.log("decryptedData", JSON.parse(decryptedData));
+  // Dekode data pengguna jika perlu
+  const userProfile = decodeURIComponent(userCookie);
+  const decryptedData = decryptId(userProfile);
+  console.log("decryptedData", JSON.parse(decryptedData));
 
-	// Tetapkan data pengguna yang sudah didekripsi ke variabel user
-	user = JSON.parse(decryptedData);
+  // Tetapkan data pengguna yang sudah didekripsi ke variabel user
+  user = JSON.parse(decryptedData);
 }
 
 // Ekspor objek pengguna

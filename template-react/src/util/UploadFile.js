@@ -1,9 +1,10 @@
 import { API_LINK } from "./Constants";
 
-const uploadFile = async (file) => {
-  if (file != null) {
+const uploadFile = async (files) => {
+  if (files != null) {
+    console.log(files);
     const data = new FormData();
-    data.append("file", file.files[0]);
+    data.append("files", files); // files langsung ditambahkan ke FormData
 
     try {
       const response = await fetch(API_LINK + "Upload/UploadFile", {
@@ -11,12 +12,15 @@ const uploadFile = async (file) => {
         body: data,
       });
       const result = await response.json();
+      console.log("responseUpload",response);
       if (response.ok) {
-        return result;
+        console.log("uploadFileResult : " + result);
+        return result.Hasil;
       } else {
         return "ERROR";
       }
     } catch (err) {
+      console.log("errorlolllll", err)
       return "ERROR";
     }
   } else return "";
